@@ -64,7 +64,6 @@ export class HomeComponent implements OnInit {
 
 
   deleteContact(index:number){
-    console.log(index);
     this.contacts.splice(index, 1);
     this.saveStorage();
   }
@@ -80,9 +79,6 @@ export class HomeComponent implements OnInit {
 
 
   editContact(){
-    /*let contactEdited = {id: this.editId, name: this.editName, email: this.editEmail, phone: this.editPhone};
-    this.contacts.splice(this.editIndex, 1, contactEdited);*/
-
     this.contacts[this.editIndex].name = this.editName;
     this.contacts[this.editIndex].email = this.editEmail;
     this.contacts[this.editIndex].phone = this.editPhone;
