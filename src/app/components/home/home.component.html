@@ -1,0 +1,121 @@
+<div class="text-right">
+  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#nuevo" data-backdrop="static" data-keyboard="false">
+    <i class="fas fa-user-plus"></i>
+    Nuevo
+  </button>
+</div>
+
+
+<div class="py-4">
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Correo electrónico</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Dirección</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts; let i = index">
+        <td>{{contact.name}}</td>
+        <td>{{contact.email}}</td>
+        <td>{{contact.phone}}</td>
+        <td>{{contact.address}}</td>
+        <td class="text-center">
+          <button type="button" class="btn btn-primary btn-sm mx-1" data-toggle="modal" data-target="#edit" (click)="getContactDataForModalEdit(i, contact.id, contact.name, contact.email, contact.phone, contact.address)">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm mx-1" (click)="deleteContact(i)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-secondary text-center" role="alert" *ngIf="contacts.length == 0">
+    Sin contactos por el momento.
+  </div>
+</div>
+
+
+<!-- MODAL ADD CONTACT -->
+
+<div class="modal fade" id="nuevo" tabindex="-1" role="dialog" aria-labelledby="nuevoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info">
+          <h5 class="modal-title" id="exampleModalLabel">Nuevo contacto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #formulario="ngForm">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input [(ngModel)]="name" name="name" type="text" class="form-control" id="nombre" placeholder="Nombre completo" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Correo electrónico</label>
+              <input [(ngModel)]="email" name="email" type="email" class="form-control" id="email" placeholder="ejemplo.gmail.com" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Teléfono</label>
+              <input [(ngModel)]="phone" name="phone" type="number" class="form-control" id="phone" required>
+            </div>
+            <div class="form-group">
+              <label for="direccion">Dirección</label>
+              <input [(ngModel)]="address" name="address" type="text" class="form-control" id="direccion" placeholder="Dirección completa" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-success" (click)="saveContact(formulario)" [disabled]="formulario.invalid" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- MODAL EDIT CONTACT -->
+
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title" id="editModalLabel">Editar contacto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #formularioEdit="ngForm">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input [(ngModel)]="editName" name="editName" type="text" class="form-control" id="nombre" placeholder="Nombre completo" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input [(ngModel)]="editEmail" name="editEmail" type="email" class="form-control" id="email" placeholder="ejemplo.gmail.com" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input [(ngModel)]="editPhone" name="editPhone" type="number" class="form-control" id="phone" required>
+          </div>
+          <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input [(ngModel)]="editAddress" name="editAddress" type="text" class="form-control" id="direccion" placeholder="Dirección completa" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" (click)="editContact()" [disabled]="formularioEdit.invalid" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
