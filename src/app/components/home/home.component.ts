@@ -55,7 +55,9 @@ export class HomeComponent implements OnInit {
     let newContact:any = {id, name, email, phone, address};
     this.contacts.push(...[newContact]);
     this.saveStorage();
+  }
 
+  clearData(){
     this.name = '';
     this.email = '';
     this.phone = undefined;
